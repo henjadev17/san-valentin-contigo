@@ -115,6 +115,7 @@
       width: min(980px, 100%);
       display: grid;
       gap: 1.5rem;
+      margin-inline: auto;
     }
 
     .card {
@@ -259,17 +260,9 @@
     }
 
     .audio-card {
-      padding: 1.2rem 1.1rem 1.4rem;
+      padding: 1rem 1.1rem 1.1rem;
       display: grid;
       gap: 0.8rem;
-    }
-
-    .audio-card h2 {
-      font-family: "Great Vibes", cursive;
-      font-size: 2rem;
-      color: var(--red-soft);
-      text-align: center;
-      font-weight: 400;
     }
 
     .audio-help {
@@ -368,13 +361,21 @@
       color: var(--red-soft);
       font-weight: 400;
       margin-bottom: 1.1rem;
+      width: fit-content;
+      max-width: 100%;
+      margin-inline: auto;
+      text-wrap: balance;
+      text-align: center;
     }
 
     .btn-zone {
-      min-height: 96px;
+      min-height: 130px;
       position: relative;
       display: grid;
       place-items: center;
+      width: 100%;
+      max-width: 720px;
+      margin-inline: auto;
     }
 
     .button-row {
@@ -404,7 +405,7 @@
     .action-btn:hover { transform: translateY(-2px) scale(1.03); filter: brightness(1.05); }
     .action-btn:active { transform: translateY(1px) scale(0.98); }
 
-    .yes-btn { background: var(--yes); min-width: min(360px, 95%); }
+    .yes-btn { background: var(--yes); min-width: min(340px, 94%); }
     .no-btn { background: var(--no); position: relative; z-index: 2; }
 
     .no-btn.temporarily-disabled { opacity: 0.7; cursor: not-allowed; }
@@ -534,14 +535,22 @@
     }
 
     @media (max-width: 640px) {
-      body { padding-top: 1rem; }
+      body { padding: 1rem 0.8rem 2rem; }
+      .container { gap: 1rem; }
+      .hero { padding: 1.6rem 0.9rem 1.2rem; }
+      .slider-wrap,
+      .proposal,
+      .audio-card { padding-inline: 0.8rem; }
       .slider-btn { width: 38px; height: 38px; }
       .slide { padding: 2.1rem 1rem; }
-      .action-btn { width: 100%; }
+      .proposal h2 { font-size: clamp(2rem, 10vw, 2.45rem); }
+      .btn-zone { min-height: 150px; }
+      .action-btn { width: min(100%, 360px); }
       .button-row { flex-direction: column; }
       .no-btn.escape {
         position: absolute;
-        left: 50%;
+        left: 50% !important;
+        transform: translateX(-50%);
       }
     }
 
@@ -577,17 +586,7 @@
       <p>Tengo algo que preguntarte…</p>
     </header>
 
-    <section class="slider-wrap card" aria-label="Mensajes románticos">
-      <div class="slider" id="slider" tabindex="0">
-        <button class="slider-btn prev" id="prevBtn" aria-label="Mensaje anterior">❮</button>
-        <div class="slides" id="slides"></div>
-        <button class="slider-btn next" id="nextBtn" aria-label="Mensaje siguiente">❯</button>
-      </div>
-      <div class="dots" id="dots" aria-label="Indicadores del carrusel"></div>
-    </section>
-
     <section class="audio-card card" aria-label="Música romántica">
-      <h2>Nuestra canción 💞</h2>
       <p class="audio-help">Edita esta constante para cambiar la canción:</p>
       <div class="audio-url">const AUDIO_URL = "pega_aqui_tu_mp3.mp3";</div>
       <audio id="bgMusic" controls preload="auto"></audio>
@@ -598,6 +597,15 @@
         <p>Toca el botón ▶ para iniciar la música 💕</p>
         <button class="music-btn" id="playMusicBtn">Reproducir música</button>
       </div>
+    </section>
+
+    <section class="slider-wrap card" aria-label="Mensajes románticos">
+      <div class="slider" id="slider" tabindex="0">
+        <button class="slider-btn prev" id="prevBtn" aria-label="Mensaje anterior">❮</button>
+        <div class="slides" id="slides"></div>
+        <button class="slider-btn next" id="nextBtn" aria-label="Mensaje siguiente">❯</button>
+      </div>
+      <div class="dots" id="dots" aria-label="Indicadores del carrusel"></div>
     </section>
 
     <section class="proposal card">
@@ -854,6 +862,16 @@
       }
     }
 
+    function resetNoButtonPlacement() {
+      noBtn.classList.remove("escape");
+      noBtn.style.position = "relative";
+      noBtn.style.left = "0";
+      noBtn.style.top = "0";
+      noBtn.style.transform = "";
+      noBtn.style.zIndex = "2";
+      noBtn.style.opacity = "1";
+    }
+
     function moveNoButton() {
       const zoneRect = btnZone.getBoundingClientRect();
       const btnRect = noBtn.getBoundingClientRect();
@@ -865,6 +883,7 @@
       noBtn.style.left = `${newX}px`;
       noBtn.style.top = `${newY}px`;
       noBtn.classList.add("escape");
+      setTimeout(resetNoButtonPlacement, 1150);
     }
 
     function hideAndReturn() {
@@ -939,7 +958,11 @@
       const pick = noReactions[randomInt(0, noReactions.length - 1)];
       pick.run();
       showToast(`${pick.msg} (Intento ${noCount}/${maxNo})`);
-      if (noCount >= maxNo) lockNoButton();
+      if (noCount >= maxNo) {
+        lockNoButton();
+      } else {
+        setTimeout(resetNoButtonPlacement, 1500);
+      }
     });
 
     // ==========================
