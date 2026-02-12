@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¿Quieres ser mi San Valentín?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --rose-50: #fff2f6;
+      --rose-100: #ffe3ec;
+      --rose-200: #ffc9da;
+      --rose-300: #ff9fbe;
+      --rose-400: #ff739d;
+      --rose-500: #f9487f;
+      --red-soft: #d6285f;
+      --wine: #8c1c3a;
+      --card-bg: rgba(255, 255, 255, 0.52);
+      --card-border: rgba(255, 255, 255, 0.6);
+      --shadow: 0 18px 35px rgba(166, 36, 83, 0.2);
+      --text: #53172b;
+      --muted: #824157;
+      --yes: linear-gradient(135deg, #ff5d95, #d72660);
+      --no: linear-gradient(135deg, #ff9ebf, #ff6f98);
+      --toast: rgba(83, 23, 43, 0.92);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+      font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 10% 15%, rgba(255, 255, 255, 0.7), transparent 40%),
+        radial-gradient(circle at 90% 10%, rgba(255, 188, 211, 0.6), transparent 43%),
+        radial-gradient(circle at 70% 80%, rgba(249, 72, 127, 0.14), transparent 42%),
+        linear-gradient(145deg, #fff7fa 0%, #ffe8f0 45%, #ffdbe8 100%);
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem 3rem;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .blob {
+      position: fixed;
+      border-radius: 999px;
+      filter: blur(30px);
+      opacity: 0.35;
+      z-index: -2;
+      animation: drift 13s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .blob.one { width: 22rem; height: 22rem; background: #ff7aa7; left: -6rem; top: 3rem; }
+    .blob.two { width: 17rem; height: 17rem; background: #ffc2d8; right: -4rem; top: 8rem; animation-delay: -4s; }
+    .blob.three { width: 20rem; height: 20rem; background: #ff6c9e; right: 18%; bottom: -5rem; animation-delay: -8s; }
+
+    @keyframes drift {
+      0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+      50% { transform: translateY(-18px) translateX(10px) scale(1.08); }
+    }
+
+    .heart-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .heart-bg span {
+      position: absolute;
+      color: rgba(255, 70, 130, 0.2);
+      font-size: clamp(0.8rem, 1.2vw, 1.2rem);
+      animation: floatHeart linear infinite;
+    }
+
+    @keyframes floatHeart {
+      from { transform: translateY(102vh) scale(0.7); opacity: 0; }
+      12% { opacity: 0.75; }
+      85% { opacity: 0.6; }
+      to { transform: translateY(-12vh) scale(1.1); opacity: 0; }
+    }
+
+    .sparkle {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+      z-index: -1;
+      animation: twinkle 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { transform: scale(0.35); opacity: 0.35; }
+      50% { transform: scale(1); opacity: 0.9; }
+    }
+
+    .container {
+      width: min(980px, 100%);
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .card {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 2rem 1.2rem 1.5rem;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 400;
+      color: var(--red-soft);
+      line-height: 1.06;
+      margin-bottom: 0.3rem;
+      text-shadow: 0 5px 18px rgba(255, 84, 146, 0.2);
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .hero::after {
+      content: "✨ 💖 ✨";
+      display: block;
+      margin-top: 0.8rem;
+      letter-spacing: 0.35rem;
+      opacity: 0.8;
+    }
+
+    .slider-wrap {
+      padding: 1rem;
+    }
+
+    .slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.7), rgba(255, 214, 232, 0.4));
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      min-height: 220px;
+      box-shadow: inset 0 0 35px rgba(255, 117, 165, 0.15);
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 560ms ease;
+      width: 100%;
+    }
+
+    .slide {
+      min-width: 100%;
+      padding: 2.6rem 1.6rem;
+      text-align: center;
+      display: grid;
+      place-content: center;
+      gap: 1rem;
+    }
+
+    .slide .decor {
+      font-size: 1.3rem;
+      opacity: 0.72;
+      letter-spacing: 0.22rem;
+      user-select: none;
+    }
+
+    .slide p {
+      font-size: clamp(1.2rem, 2.6vw, 1.62rem);
+      font-weight: 500;
+      line-height: 1.5;
+      color: #6c1b3b;
+      max-width: 40ch;
+      margin: 0 auto;
+    }
+
+    .slide p::before,
+    .slide p::after {
+      font-family: "Great Vibes", cursive;
+      font-size: 1.5em;
+      color: #e54582;
+      opacity: 0.7;
+    }
+
+    .slide p::before { content: "“ "; }
+    .slide p::after { content: " ”"; }
+
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--wine);
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 16px rgba(140, 28, 58, 0.16);
+      transition: transform 200ms ease, background 200ms ease;
+      z-index: 2;
+    }
+
+    .slider-btn:hover { transform: translateY(-50%) scale(1.08); background: white; }
+    .slider-btn.prev { left: 0.7rem; }
+    .slider-btn.next { right: 0.7rem; }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.9rem 0 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(157, 58, 95, 0.28);
+      cursor: pointer;
+      transition: all 200ms ease;
+    }
+
+    .dot.active {
+      width: 24px;
+      border-radius: 14px;
+      background: var(--red-soft);
+    }
+
+    .audio-card {
+      padding: 1.2rem 1.1rem 1.4rem;
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .audio-card h2 {
+      font-family: "Great Vibes", cursive;
+      font-size: 2rem;
+      color: var(--red-soft);
+      text-align: center;
+      font-weight: 400;
+    }
+
+    .audio-help {
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.45;
+    }
+
+    .audio-url {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px dashed rgba(140, 28, 58, 0.34);
+      border-radius: 12px;
+      padding: 0.7rem;
+      font-size: 0.85rem;
+      color: #6f2946;
+      text-align: center;
+      word-break: break-all;
+    }
+
+    audio {
+      width: 100%;
+      border-radius: 999px;
+      height: 42px;
+      accent-color: #d62d67;
+    }
+
+    .audio-fallback {
+      display: none;
+      justify-items: center;
+      gap: 0.6rem;
+      border: 1px solid rgba(211, 55, 108, 0.3);
+      border-radius: 14px;
+      background: rgba(255, 237, 244, 0.82);
+      padding: 0.8rem;
+      text-align: center;
+    }
+
+    .audio-fallback.show { display: grid; }
+
+    .music-btn {
+      border: none;
+      background: linear-gradient(135deg, #ff5f98, #d22861);
+      color: #fff;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 0.6rem 1rem;
+      cursor: pointer;
+    }
+
+    .visualizer {
+      height: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 5px;
+      opacity: 0.5;
+      transition: opacity 240ms ease;
+    }
+
+    .visualizer.active { opacity: 1; }
+
+    .bar {
+      width: 5px;
+      height: 9px;
+      border-radius: 8px;
+      background: linear-gradient(to top, #f6548a, #ffd1e2);
+      transform-origin: bottom;
+      animation: beat 1s infinite ease-in-out;
+      animation-play-state: paused;
+    }
+
+    .visualizer.active .bar { animation-play-state: running; }
+
+    .bar:nth-child(2) { animation-delay: 0.1s; }
+    .bar:nth-child(3) { animation-delay: 0.25s; }
+    .bar:nth-child(4) { animation-delay: 0.05s; }
+    .bar:nth-child(5) { animation-delay: 0.2s; }
+
+    @keyframes beat {
+      0%, 100% { transform: scaleY(0.5); }
+      50% { transform: scaleY(2.3); }
+    }
+
+    .proposal {
+      padding: 1.4rem 1rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proposal h2 {
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(2.3rem, 6vw, 3.4rem);
+      color: var(--red-soft);
+      font-weight: 400;
+      margin-bottom: 1.1rem;
+    }
+
+    .btn-zone {
+      min-height: 96px;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .action-btn {
+      border: none;
+      color: #fff;
+      font-size: 1.03rem;
+      padding: 0.85rem 1.35rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      box-shadow: 0 10px 18px rgba(114, 17, 53, 0.26);
+      transition: transform 180ms ease, filter 180ms ease, opacity 180ms ease;
+      will-change: transform;
+      touch-action: manipulation;
+    }
+
+    .action-btn:hover { transform: translateY(-2px) scale(1.03); filter: brightness(1.05); }
+    .action-btn:active { transform: translateY(1px) scale(0.98); }
+
+    .yes-btn { background: var(--yes); min-width: min(360px, 95%); }
+    .no-btn { background: var(--no); position: relative; z-index: 2; }
+
+    .no-btn.temporarily-disabled { opacity: 0.7; cursor: not-allowed; }
+    .no-btn.hidden { visibility: hidden; opacity: 0; pointer-events: none; }
+
+    .puff {
+      position: absolute;
+      pointer-events: none;
+      animation: puff 620ms ease forwards;
+      font-size: 1rem;
+      color: #ff4f8b;
+    }
+
+    @keyframes puff {
+      from { transform: translate(-50%, -50%) scale(0.35); opacity: 0.95; }
+      to { transform: translate(-50%, -120%) scale(1.5); opacity: 0; }
+    }
+
+    .toast-wrap {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      display: grid;
+      gap: 0.55rem;
+      z-index: 120;
+    }
+
+    .toast {
+      background: var(--toast);
+      color: #fff;
+      padding: 0.62rem 0.8rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+      font-size: 0.88rem;
+      max-width: min(87vw, 300px);
+      animation: slideToast 3s ease forwards;
+    }
+
+    @keyframes slideToast {
+      0% { transform: translateX(30px); opacity: 0; }
+      10%, 80% { transform: translateX(0); opacity: 1; }
+      100% { transform: translateX(15px); opacity: 0; }
+    }
+
+    .fx-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 80;
+    }
+
+    .particle {
+      position: absolute;
+      font-size: 1rem;
+      animation: fly var(--dur, 3s) ease-out forwards;
+    }
+
+    @keyframes fly {
+      from { transform: translate(var(--x, 0), var(--y, 0)) scale(0.8) rotate(0deg); opacity: 1; }
+      to { transform: translate(calc(var(--x) + var(--dx)), calc(var(--y) + var(--dy))) scale(1.2) rotate(520deg); opacity: 0; }
+    }
+
+    .rain-heart {
+      position: absolute;
+      top: -5vh;
+      font-size: 1.1rem;
+      color: rgba(243, 66, 132, 0.86);
+      animation: rainFall linear forwards;
+    }
+
+    @keyframes rainFall {
+      to { transform: translateY(110vh) translateX(var(--drift)); opacity: 0.35; }
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(80, 15, 37, 0.45);
+      display: none;
+      place-items: center;
+      padding: 1rem;
+      z-index: 200;
+      backdrop-filter: blur(3px);
+    }
+
+    .modal-overlay.show { display: grid; }
+
+    .modal {
+      width: min(500px, 100%);
+      background: linear-gradient(170deg, rgba(255, 255, 255, 0.96), rgba(255, 228, 239, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(78, 15, 34, 0.25);
+      text-align: center;
+      padding: 1.4rem 1rem;
+    }
+
+    .modal h3 {
+      font-family: "Great Vibes", cursive;
+      font-size: 2.2rem;
+      color: var(--red-soft);
+      font-weight: 400;
+      margin-bottom: 0.7rem;
+    }
+
+    .modal p {
+      color: #6a2542;
+      margin-bottom: 1rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .modal-actions button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.6rem 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #fff;
+      background: linear-gradient(135deg, #f7528c, #bf2258);
+    }
+
+    @media (max-width: 640px) {
+      body { padding-top: 1rem; }
+      .slider-btn { width: 38px; height: 38px; }
+      .slide { padding: 2.1rem 1rem; }
+      .action-btn { width: 100%; }
+      .button-row { flex-direction: column; }
+      .no-btn.escape {
+        position: absolute;
+        left: 50%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .heart-bg,
+      .fx-layer,
+      .blob,
+      .sparkle {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob one"></div>
+  <div class="blob two"></div>
+  <div class="blob three"></div>
+  <div class="heart-bg" id="heartBg" aria-hidden="true"></div>
+  <div id="sparkleLayer" aria-hidden="true"></div>
+  <div class="fx-layer" id="fxLayer" aria-hidden="true"></div>
+  <div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+  <main class="container">
+    <header class="hero card">
+      <h1>Mi amor… 💖</h1>
+      <p>Tengo algo que preguntarte…</p>
+    </header>
+
+    <section class="slider-wrap card" aria-label="Mensajes románticos">
+      <div class="slider" id="slider" tabindex="0">
+        <button class="slider-btn prev" id="prevBtn" aria-label="Mensaje anterior">❮</button>
+        <div class="slides" id="slides"></div>
+        <button class="slider-btn next" id="nextBtn" aria-label="Mensaje siguiente">❯</button>
+      </div>
+      <div class="dots" id="dots" aria-label="Indicadores del carrusel"></div>
+    </section>
+
+    <section class="audio-card card" aria-label="Música romántica">
+      <h2>Nuestra canción 💞</h2>
+      <p class="audio-help">Edita esta constante para cambiar la canción:</p>
+      <div class="audio-url">const AUDIO_URL = "pega_aqui_tu_mp3.mp3";</div>
+      <audio id="bgMusic" controls preload="auto"></audio>
+      <div class="visualizer" id="visualizer" aria-hidden="true">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </div>
+      <div class="audio-fallback" id="audioFallback">
+        <p>Toca el botón ▶ para iniciar la música 💕</p>
+        <button class="music-btn" id="playMusicBtn">Reproducir música</button>
+      </div>
+    </section>
+
+    <section class="proposal card">
+      <h2>¿Quieres ser mi San Valentín? 💘</h2>
+      <div class="btn-zone" id="btnZone">
+        <div class="button-row" id="buttonRow">
+          <button class="action-btn yes-btn" id="yesBtn">Sí 💖</button>
+          <button class="action-btn no-btn" id="noBtn">No 😅</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="resultModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <h3 id="modalTitle">Sabía que dirías que sí 💖</h3>
+      <p>Te amo muchísimo. Gracias por hacer mi vida más bonita ✨</p>
+      <div class="modal-actions">
+        <button id="repeatFxBtn">Repetir animación</button>
+        <button id="closeModalBtn">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==========================
+    // Configuración editable
+    // ==========================
+    const AUDIO_URL = "pega_aqui_tu_mp3.mp3";
+
+    const MESSAGES = [
+      "Eres mi lugar favorito en el mundo.",
+      "Contigo todo se siente más bonito.",
+      "Si te elijo hoy, te elijo siempre.",
+      "Tu sonrisa es mi notificación favorita.",
+      "Gracias por existir y por elegirme.",
+      "¿Hacemos de este día un recuerdo eterno?"
+    ];
+
+    // ==========================
+    // Utilidades base
+    // ==========================
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const toastWrap = document.getElementById("toastWrap");
+
+    const random = (min, max) => Math.random() * (max - min) + min;
+    const randomInt = (min, max) => Math.floor(random(min, max + 1));
+
+    function showToast(text) {
+      const toast = document.createElement("div");
+      toast.className = "toast";
+      toast.textContent = text;
+      toastWrap.appendChild(toast);
+      setTimeout(() => toast.remove(), 2950);
+    }
+
+    // ==========================
+    // Decoración de fondo
+    // ==========================
+    (function createBackgroundHearts() {
+      if (prefersReducedMotion) return;
+      const layer = document.getElementById("heartBg");
+      const count = 18;
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement("span");
+        heart.textContent = i % 2 ? "❤" : "♡";
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.animationDuration = `${random(14, 24)}s`;
+        heart.style.animationDelay = `${random(-18, 0)}s`;
+        layer.appendChild(heart);
+      }
+    })();
+
+    (function createSparkles() {
+      if (prefersReducedMotion) return;
+      const layer = document.getElementById("sparkleLayer");
+      for (let i = 0; i < 14; i++) {
+        const star = document.createElement("span");
+        star.className = "sparkle";
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${random(-3.8, 0)}s`;
+        star.style.transform = `scale(${random(0.3, 0.9)})`;
+        layer.appendChild(star);
+      }
+    })();
+
+    // ==========================
+    // Slider romántico
+    // ==========================
+    const slidesEl = document.getElementById("slides");
+    const dotsEl = document.getElementById("dots");
+    const sliderEl = document.getElementById("slider");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    let currentSlide = 0;
+    let autoplayTimer = null;
+    let paused = false;
+
+    function buildSlider() {
+      MESSAGES.forEach((message, i) => {
+        const slide = document.createElement("article");
+        slide.className = "slide";
+        slide.innerHTML = `<div class="decor">💗 ✨ 💗</div><p>${message}</p><div class="decor">✨ 💞 ✨</div>`;
+        slidesEl.appendChild(slide);
+
+        const dot = document.createElement("button");
+        dot.className = "dot";
+        dot.setAttribute("aria-label", `Ir al mensaje ${i + 1}`);
+        dot.addEventListener("click", () => {
+          goToSlide(i);
+          restartAutoplay();
+        });
+        dotsEl.appendChild(dot);
+      });
+      updateSlider();
+    }
+
+    function updateSlider() {
+      slidesEl.style.transform = `translateX(-${currentSlide * 100}%)`;
+      [...dotsEl.children].forEach((dot, i) => dot.classList.toggle("active", i === currentSlide));
+    }
+
+    function goToSlide(index) {
+      currentSlide = (index + MESSAGES.length) % MESSAGES.length;
+      updateSlider();
+    }
+
+    function nextSlide() { goToSlide(currentSlide + 1); }
+    function prevSlide() { goToSlide(currentSlide - 1); }
+
+    function startAutoplay() {
+      if (prefersReducedMotion) return;
+      stopAutoplay();
+      autoplayTimer = setInterval(() => {
+        if (!paused) nextSlide();
+      }, 3600);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer) clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+
+    function restartAutoplay() {
+      stopAutoplay();
+      startAutoplay();
+    }
+
+    ["mouseenter", "touchstart", "focusin", "pointerdown"].forEach(evt => {
+      sliderEl.addEventListener(evt, () => { paused = true; });
+    });
+
+    ["mouseleave", "touchend", "focusout", "pointerup"].forEach(evt => {
+      sliderEl.addEventListener(evt, () => { paused = false; });
+    });
+
+    prevBtn.addEventListener("click", () => { prevSlide(); restartAutoplay(); });
+    nextBtn.addEventListener("click", () => { nextSlide(); restartAutoplay(); });
+
+    sliderEl.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") { nextSlide(); restartAutoplay(); }
+      if (e.key === "ArrowLeft") { prevSlide(); restartAutoplay(); }
+    });
+
+    buildSlider();
+    startAutoplay();
+
+    // ==========================
+    // Música con fallback de autoplay
+    // ==========================
+    const bgMusic = document.getElementById("bgMusic");
+    const visualizer = document.getElementById("visualizer");
+    const audioFallback = document.getElementById("audioFallback");
+    const playMusicBtn = document.getElementById("playMusicBtn");
+
+    bgMusic.src = AUDIO_URL;
+    bgMusic.loop = true;
+
+    function setVisualizer(state) {
+      visualizer.classList.toggle("active", state && !prefersReducedMotion);
+    }
+
+    async function tryAutoplay() {
+      if (!AUDIO_URL || AUDIO_URL.includes("pega_aqui_tu_mp3")) {
+        showToast("Tip: pega tu MP3 en AUDIO_URL para musicalizar la página 🎵");
+        audioFallback.classList.add("show");
+        return;
+      }
+      try {
+        await bgMusic.play();
+        setVisualizer(true);
+      } catch (err) {
+        audioFallback.classList.add("show");
+      }
+    }
+
+    playMusicBtn.addEventListener("click", async () => {
+      try {
+        await bgMusic.play();
+        audioFallback.classList.remove("show");
+        setVisualizer(true);
+      } catch {
+        showToast("Tu navegador necesita interacción adicional para reproducir 💗");
+      }
+    });
+
+    bgMusic.addEventListener("play", () => setVisualizer(true));
+    bgMusic.addEventListener("pause", () => setVisualizer(false));
+    window.addEventListener("load", tryAutoplay, { once: true });
+
+    // ==========================
+    // Botones Sí / No
+    // ==========================
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const btnZone = document.getElementById("btnZone");
+    const resultModal = document.getElementById("resultModal");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const repeatFxBtn = document.getElementById("repeatFxBtn");
+    const fxLayer = document.getElementById("fxLayer");
+
+    const noTexts = [
+      "¿Segurísima? 🥺",
+      "Piénsalo otra vez 😭",
+      "No acepto esa respuesta 😆",
+      "Inténtalo de nuevo 🙈",
+      "Ese botón no era 🤭"
+    ];
+
+    let noCount = 0;
+    const maxNo = 6;
+
+    function lockNoButton() {
+      noBtn.disabled = true;
+      noBtn.classList.add("hidden");
+      yesBtn.textContent = "SÍ, claro que sí 💘 (no lo dudé ni un segundo)";
+      showToast("Ese 'No' ya no está disponible, mi amor 💝");
+    }
+
+    function puffHeartsAt(x, y, total = 10) {
+      if (prefersReducedMotion) return;
+      for (let i = 0; i < total; i++) {
+        const puff = document.createElement("span");
+        puff.className = "puff";
+        puff.textContent = i % 2 ? "💖" : "✨";
+        puff.style.left = `${x + random(-12, 12)}px`;
+        puff.style.top = `${y + random(-6, 6)}px`;
+        puff.style.fontSize = `${random(0.9, 1.4)}rem`;
+        puff.style.animationDuration = `${random(0.45, 0.8)}s`;
+        btnZone.appendChild(puff);
+        setTimeout(() => puff.remove(), 780);
+      }
+    }
+
+    function moveNoButton() {
+      const zoneRect = btnZone.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+      const maxX = Math.max(0, zoneRect.width - btnRect.width - 6);
+      const maxY = Math.max(0, zoneRect.height - btnRect.height - 6);
+      const newX = random(0, maxX);
+      const newY = random(0, maxY);
+      noBtn.style.position = "absolute";
+      noBtn.style.left = `${newX}px`;
+      noBtn.style.top = `${newY}px`;
+      noBtn.classList.add("escape");
+    }
+
+    function hideAndReturn() {
+      noBtn.classList.add("hidden");
+      setTimeout(() => {
+        noBtn.classList.remove("hidden");
+      }, 950);
+    }
+
+    function disableBriefly() {
+      noBtn.disabled = true;
+      noBtn.classList.add("temporarily-disabled");
+      noBtn.textContent = "ay no 😳";
+      setTimeout(() => {
+        noBtn.disabled = false;
+        noBtn.classList.remove("temporarily-disabled");
+        noBtn.textContent = "No 😅";
+      }, 1400);
+    }
+
+    function hideBehindYes() {
+      noBtn.style.position = "relative";
+      noBtn.style.left = "-34px";
+      noBtn.style.top = "0";
+      noBtn.style.zIndex = "0";
+      yesBtn.style.zIndex = "2";
+      setTimeout(() => {
+        noBtn.style.left = "0";
+        noBtn.style.zIndex = "2";
+      }, 1200);
+    }
+
+    function scaleNoButton() {
+      const scale = Math.random() > 0.5 ? random(0.45, 0.7) : random(1.35, 1.75);
+      noBtn.style.transform = `scale(${scale})`;
+      setTimeout(() => {
+        noBtn.style.transform = "";
+      }, 1000);
+    }
+
+    function randomTextNo() {
+      noBtn.textContent = noTexts[randomInt(0, noTexts.length - 1)];
+      setTimeout(() => {
+        noBtn.textContent = "No 😅";
+      }, 1400);
+    }
+
+    const noReactions = [
+      {
+        run: () => {
+          const rect = noBtn.getBoundingClientRect();
+          puffHeartsAt(rect.left + rect.width / 2, rect.top + rect.height / 2, 14);
+          noBtn.style.opacity = "0.15";
+          setTimeout(() => { noBtn.style.opacity = "1"; }, 350);
+        },
+        msg: "Boom de ternura... ese NO explotó 💥💗"
+      },
+      { run: moveNoButton, msg: "¡Ese botón salió corriendo! 🏃‍♀️💨" },
+      { run: disableBriefly, msg: "El NO se puso nervioso un momentito 😳" },
+      { run: hideAndReturn, msg: "Ups… se escondió por un instante 🙈" },
+      { run: hideBehindYes, msg: "Se escondió detrás del SÍ, sospechoso 👀" },
+      { run: scaleNoButton, msg: "¿Por qué cambió de tamaño? Drama total 🎭" },
+      { run: randomTextNo, msg: "El NO ahora te ruega otra oportunidad 🥺" }
+    ];
+
+    noBtn.addEventListener("click", () => {
+      if (noCount >= maxNo) {
+        lockNoButton();
+        return;
+      }
+      noCount += 1;
+      const pick = noReactions[randomInt(0, noReactions.length - 1)];
+      pick.run();
+      showToast(`${pick.msg} (Intento ${noCount}/${maxNo})`);
+      if (noCount >= maxNo) lockNoButton();
+    });
+
+    // ==========================
+    // Aceptar "Sí" + animación
+    // ==========================
+    function spawnParticles(total = 110) {
+      if (prefersReducedMotion) return;
+      const symbols = ["💖", "💘", "💕", "✨", "❤"];
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      for (let i = 0; i < total; i++) {
+        const p = document.createElement("span");
+        p.className = "particle";
+        p.textContent = symbols[randomInt(0, symbols.length - 1)];
+        p.style.setProperty("--x", `${centerX}px`);
+        p.style.setProperty("--y", `${centerY}px`);
+        p.style.setProperty("--dx", `${random(-45, 45)}vw`);
+        p.style.setProperty("--dy", `${random(-45, 35)}vh`);
+        p.style.setProperty("--dur", `${random(2.2, 4.3)}s`);
+        p.style.fontSize = `${random(0.8, 1.4)}rem`;
+        fxLayer.appendChild(p);
+        setTimeout(() => p.remove(), 4500);
+      }
+    }
+
+    function rainHearts(ms = 4200) {
+      if (prefersReducedMotion) return;
+      const start = performance.now();
+      const tick = () => {
+        const now = performance.now();
+        if (now - start > ms) return;
+        const heart = document.createElement("span");
+        heart.className = "rain-heart";
+        heart.textContent = Math.random() > 0.3 ? "💗" : "✨";
+        heart.style.left = `${random(-3, 98)}vw`;
+        heart.style.setProperty("--drift", `${random(-80, 80)}px`);
+        heart.style.animationDuration = `${random(2.8, 4.4)}s`;
+        fxLayer.appendChild(heart);
+        setTimeout(() => heart.remove(), 4500);
+        requestAnimationFrame(() => setTimeout(tick, randomInt(70, 130)));
+      };
+      tick();
+    }
+
+    function celebrateYes() {
+      spawnParticles(prefersReducedMotion ? 20 : 120);
+      rainHearts(prefersReducedMotion ? 1200 : 4200);
+      resultModal.classList.add("show");
+      showToast("Sabía que dirías que sí 💞");
+    }
+
+    yesBtn.addEventListener("click", celebrateYes);
+    closeModalBtn.addEventListener("click", () => resultModal.classList.remove("show"));
+    repeatFxBtn.addEventListener("click", celebrateYes);
+    resultModal.addEventListener("click", (e) => {
+      if (e.target === resultModal) resultModal.classList.remove("show");
+    });
+  </script>
+</body>
+</html>
